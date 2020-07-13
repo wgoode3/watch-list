@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MovieList from './Components/MovieList';
 import MovieForm from './Components/MovieForm';
+import Tab from './Components/Tab';
 
 function App() {
 
@@ -39,6 +40,7 @@ function App() {
           <MovieList data={movies} like={like} dislike={dislike} />
         </div>
       </div>
+      <Tab />
     </div>
   );
 }

@@ -4,8 +4,10 @@ import React, { useState } from 'react';
 const MovieForm = props => {
 
     const [title, setTitle] = useState("");
+    const [titleTouched, setTitleTouched] = useState(false);
     const [year, setYear] = useState(1990);
     const [genre, setGenre] = useState("");
+    const [genreTouched, setGenreTouched] = useState(false);
     const [runTime, setRunTime] = useState(90);
 
     const addMovie = e => {
@@ -23,7 +25,12 @@ const MovieForm = props => {
                 <div className="col-sm-6">
                     <div className="form-group">
                         <label>Title:</label>
-                        <input type="text" className="form-control" onChange={e => setTitle(e.target.value)} value={title} />
+                        <input type="text" className="form-control" onBlur={e => setTitleTouched(true)} onChange={e => setTitle(e.target.value)} value={title} />
+                        {
+                            titleTouched && title.length < 2 ? 
+                            <p className="text-danger">Title must be 2 characters or longer</p> : 
+                            ""
+                        }
                     </div>
                     <div className="form-group">
                         <label>Year:</label>
@@ -33,7 +40,12 @@ const MovieForm = props => {
                 <div className="col-sm-6">
                     <div className="form-group">
                         <label>Genre:</label>
-                        <input type="text" className="form-control" onChange={e => setGenre(e.target.value)} value={genre} />
+                        <input type="text" className="form-control" onBlur={e => setGenreTouched(true)} onChange={e => setGenre(e.target.value)} value={genre} />
+                        {
+                            genreTouched && genre.length < 4 ? 
+                            <p className="text-danger">Genre must be 5 characters or longer</p> : 
+                            ""
+                        }
                     </div>
                     <div className="form-group">
                         <label>Run Time (minutes):</label>
@@ -41,7 +53,11 @@ const MovieForm = props => {
                     </div>
                 </div>
             </div>
-            <input type="submit" value="Add to Watch List" className="btn btn-info btn-block" />
+            {
+                title.length >= 2 && genre.length >= 4 ?
+                <input type="submit" value="Add to Watch List" className="btn btn-info btn-block" /> :
+                <input disabled type="submit" value="Add to Watch List" className="btn btn-info btn-block" />
+            }
         </form>
     );
 }
